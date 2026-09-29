@@ -1,0 +1,4 @@
+// Vorlage: als wlan_zugang.h speichern und die eigenen Zugangsdaten eintragen.
+// wlan_zugang.h steht in .gitignore und wird nicht veroeffentlicht.
+static const char* WLAN_NAME = "MeinNetz";
+static const char* WLAN_WORT = "MeinPasswort";

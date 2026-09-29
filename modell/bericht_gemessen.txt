@@ -1,0 +1,74 @@
+==============================================================================
+NACHWEIS DES ENTWURFS AM VOLLSTAENDIGEN MODELL
+==============================================================================
+
+Aufbau     m = 1.25 kg, l = 0.044 m, J = 0.00620 kg m2
+           Rad 64.0 mm, 1600 Schritte je Umdrehung -> 0.1257 mm je Schritt
+           Kippzeitkonstante 0.1067 s
+           Rampe 6.48 m/s2, Totzone 0 Hz, Grenze 6000 Hz
+
+Regler     K  = 2.325 m/s je rad   Tn = 0.0866 s   Tv = 0.0088 s
+           ki = K/Tn = 26.84  (Bedingung ki > g = 9,81 erfuellt)
+Nullpunkt  K  = 0.0813 rad je m/s   Tn = 2.272 s   Grenze 6.0 Grad
+Filter     Q_ANGLE = 0.0010  Q_BIAS = 0.0030  R_MEASURE = 309.30
+           Beschleunigungskompensation: aus
+
+------------------------------------------------------------------------------
+A  GRENZEN
+------------------------------------------------------------------------------
+   Fangbereich aus der Ruhe           22.0 Grad
+   Sicherheitsabschaltung             30.0 Grad
+   Stossfestigkeit (50 ms)           0.520 Nm
+   Nullpunkttoleranz                   3.0 mm Schwerpunktversatz
+   groesste geforderte Beschleunigung  6.48 m/s2 (zulaessig 6.48)
+   groesste Schrittfrequenz           1957 Hz (Grenze 6000)
+
+   Fangfeld (ja = richtet auf), Winkel senkrecht, Drehrate waagerecht
+               0      30      60      90     120     180  Grad/s
+     0        ja      ja      ja      ja      ja      ja
+     2        ja      ja      ja      ja      ja      ja
+     5        ja      ja      ja      ja      ja    nein
+     8        ja      ja      ja      ja      ja    nein
+    10        ja      ja      ja      ja      ja    nein
+    15        ja      ja      ja    nein    nein    nein
+    20        ja    nein    nein    nein    nein    nein
+
+------------------------------------------------------------------------------
+B  ISTWINKEL NULL BEDEUTET STILLSTAND
+------------------------------------------------------------------------------
+   Weg in den letzten 20 s             0.0016 m
+   mittlerer Istwinkel                0.00004 Grad
+   Streuung des Istwinkels            0.00166 Grad
+   mittlere Geschwindigkeit           0.00008 m/s
+   gefundener Nullpunkt               -0.0109 Grad
+
+------------------------------------------------------------------------------
+C  SCHICHT 4 FINDET DEN GLEICHGEWICHTSWINKEL
+------------------------------------------------------------------------------
+   Versatz   berechnet    gefunden    Weg
+    0.5 mm   -0.6441 Grad  -0.6550 Grad   0.315 m  stabil
+    1.0 mm   -1.2880 Grad  -1.2989 Grad   0.630 m  stabil
+    2.0 mm   -2.5747 Grad  -2.5856 Grad   1.257 m  stabil
+    4.0 mm   -5.1391 Grad   0.0000 Grad   0.612 m  FAELLT
+
+------------------------------------------------------------------------------
+D  MIT UND OHNE SCHICHT 4
+------------------------------------------------------------------------------
+   Versatz   ohne Korrektur          mit Korrektur
+   0.05 mm  FAELLT   Weg   2.98 m   stabil   Weg   0.03 m
+   0.10 mm  FAELLT   Weg   2.47 m   stabil   Weg   0.06 m
+   0.20 mm  FAELLT   Weg   1.76 m   stabil   Weg   0.13 m
+   0.50 mm  FAELLT   Weg   1.15 m   stabil   Weg   0.31 m
+   1.00 mm  FAELLT   Weg   0.81 m   stabil   Weg   0.63 m
+   2.00 mm  FAELLT   Weg   0.56 m   stabil   Weg   1.26 m
+   5.00 mm  FAELLT   Weg   0.33 m   FAELLT   Weg   0.47 m
+
+------------------------------------------------------------------------------
+E  FAHRBEFEHL
+------------------------------------------------------------------------------
+   befohlen 0.063 m/s -> erreicht 0.064 m/s bei 0.001 Grad Neigung
+   befohlen 0.126 m/s -> erreicht 0.127 m/s bei 0.002 Grad Neigung
+   befohlen 0.251 m/s -> erreicht 0.252 m/s bei 0.004 Grad Neigung
+   befohlen 0.377 m/s -> erreicht 0.378 m/s bei 0.005 Grad Neigung
+
+==============================================================================

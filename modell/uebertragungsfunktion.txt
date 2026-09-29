@@ -1,0 +1,42 @@
+ÜBERTRAGUNGSFUNKTION, ZUSTANDSMODELL UND GESCHLOSSENER KREIS — gemessene Strecke, Regler der Firmware
+erzeugt von Modell/uebertragungsfunktion.py am 2026-09-29, Rechenzeit 0.6 s
+
+1  ZUSTANDSMODELL DER STRECKE  x = (θ, ω, v), u = v_soll
+   m = 1.2480 kg, l = 44.5 mm, J = 6.19605e-03 kg m², d = 0.002 Nms, τ_mot = 2.0 ms, w = 71 mm
+   m g l = 0.54452 Nm, m l = 0.05551 kg m, T = sqrt(J/(m g l)) = 106.67 ms
+   θ̇ =      +0.0000·θ      +1.0000·ω      +0.0000·v      +0.0000·u
+   ω̇ =     +87.8824·θ      -0.3228·ω   +4479.2233·v   -4479.2233·u
+   v̇ =      +0.0000·θ      +0.0000·ω    -500.0000·v    +500.0000·u
+   Eigenwerte von A: -500.0000, -9.5373, +9.2146 1/s   (1/T = 9.3746, 1/τ = 500.0)
+
+2  ÜBERTRAGUNGSFUNKTIONEN (Laplace)
+   G_u(s) = Θ/U = −m l s / ((1 + τ s)(J s² + d s − m g l)) = (-0.05551 s) / (1.2392e-05 s³ + 6.2000e-03 s² + 9.1095e-04 s + -5.4452e-01)
+   Pole: -500.0000, -9.5373, +9.2146 1/s; Nullstelle s = 0
+   Normalform: −(s/g) / ((1+τ s)(T² s² + 2δT s − 1)),  T = 106.67 ms, δ = 0.01722
+   G_M(s) = Θ/M = 1 / (J s² + d s − m g l), Pole -9.5373, +9.2146 1/s
+   Probe C(sI−A)⁻¹B gegen die Polynomform an 4 Stellen: 1.0e-14 (G_u), 9.7e-16 (G_M) relativ
+
+3  ABTASTFORM  x[k+1] = Φ x[k] + Γ u[k],  T = 4 ms, Φ = e^(AT)
+   +1.000703 +0.003998 +0.020335   | Γ -0.020335
+   +0.351385 +0.999412 +7.742211   | Γ -7.742211
+   +0.000000 +0.000000 +0.135335   | Γ +0.864665
+   Eigenwerte Φ: 0.135335, 0.962569, 1.037546  (= e^(λT): 0.135335, 0.962569, 1.037546)
+   Feinschritt-Euler des Simulators (32 Schritte): Mechanikblock 2.20e-05 relativ, Antriebszeile 6.32e-02 (erwartet für Euler mit λτ-Schritt 6.32e-02)
+
+4  SPRUNGANTWORT  u = 0.01 m/s Sprung, offene Strecke, θ(0) = 0
+   θ(0,3 s) = -4.2487° (RK4 nichtlinear) gegen -4.2491° (e^(At)); Abweichung 1.08e-04
+   erst nach hinten (θ_min = -6.7493° bei 0.350 s), dann Kippen mit e^(t/T)
+
+5  GESCHLOSSENER KREIS (Laplace) mit dem Regler der Firmware
+   K = 2.3254 m/s je rad, Tn = 0.0866 s, Tv = 0.0088 s → k_p = 2.325, k_i = K/Tn = 26.84 (> g = 9.81: True), k_d = 0.0204
+   ohne Verzüge: (6.34841e-04) s² + (1.13561e-02) s + (8.18986e-02) = 0 → ω_n = 11.358 1/s (1.808 Hz), ζ = 0.787
+   mit τ_mot = 2 ms und τ_lp = 4.8 ms, Grad 4: Wurzeln -438.135+0.000j, -252.029+0.000j, -9.246+7.644j, -9.246-7.644j
+   16-Zustands-Modell (abgetastet, 11 Zustände nach Abtrennen von [6, 10, 11, 14, 15]): |z|max = 0.99936
+   s = -438.135  +0.000j  ↔  ln(z)/T = -650.062  +0.000j   Abstand 0.484 relativ
+   s = -252.029  +0.000j  ↔  ln(z)/T = -211.094  +0.000j   Abstand 0.162 relativ
+   s =   -9.246  +7.644j  ↔  ln(z)/T =   -9.685  +8.397j   Abstand 0.073 relativ
+   s =   -9.246  -7.644j  ↔  ln(z)/T =   -9.685  -8.397j   Abstand 0.073 relativ
+
+6  RESERVEN über dem Faktor an K und K_N
+   abgetastet (|z|max = 1): oben 2.401751924169472, unten 0.4623729669245371; Bisektion 2.432 / 0.459
+   kontinuierlich (Re s = 0, Kreis Grad 4 ohne Schicht 4): oben None, unten 0.36432794401243623
