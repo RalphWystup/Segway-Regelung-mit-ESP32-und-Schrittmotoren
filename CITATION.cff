@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "Wenn Sie diese Arbeit verwenden, zitieren Sie sie bitte wie folgt."
+title: "Segway-Regelung mit ESP32 und Schrittmotoren"
+abstract: "Das inverse Pendel, von der Strecke bis zum Regler in vier Schichten. Laborversuch mit bewegtem Modell, laufenden Verläufen und einem Manuskript, das die Herleitung geschlossen zeigt."
+type: software
+authors:
+  - family-names: Wystup
+    given-names: Ralph
+    name-particle: ""
+    name-suffix: "Prof. Dr.-Ing., M.Sc."
+license: MIT
+url: "https://ralphwystup.github.io/Segway-Regelung-mit-ESP32-und-Schrittmotoren/"
+repository-code: "https://github.com/RalphWystup/Segway-Regelung-mit-ESP32-und-Schrittmotoren"
+date-released: "2026-09-30"
+keywords:
+  - Regelungstechnik
+  - inverses Pendel
+  - Zustandsmodell
+  - Schrittmotor
+  - ESP32
